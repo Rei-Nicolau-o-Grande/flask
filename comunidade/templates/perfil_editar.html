@@ -1,0 +1,56 @@
+{% extends 'perfil.html' %}
+
+{% block form_editar_perfil %}
+    <h1 class="text-center mt-3">Editar Perfil</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form class="border p-4 mt-2" action="" method="post" enctype="multipart/form-data">
+                    {{ form_editar_perfil.csrf_token }}
+                    <legend class="text-center mt-3">Login</legend>
+                    <fieldset>
+                        <div class="form-group">
+                            {{ form_editar_perfil.username.label(class='form-label') }}
+                            {% if form_editar_perfil.username.errors %}
+                                {{ form_editar_perfil.username(class='form-control is-invalid') }}
+                                <div class="invalid-feedback">
+                                    {% for error in form_editar_perfil.username.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_editar_perfil.username }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_editar_perfil.email.label(class='form-label') }}
+                            {% if form_editar_perfil.email.errors %}
+                                {{ form_editar_perfil.email(class='form-control is-invalid') }}
+                                <div class="invalid-feedback">
+                                    {% for error in form_editar_perfil.email.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_editar_perfil.email }}
+                            {% endif %}
+                        </div>
+                        <div class="input-group mt-3">
+                            {{ form_editar_perfil.foto_perfil }}
+                            {{ form_editar_perfil.foto_perfil.label(class='input-group-text') }}
+                        </div>
+                        {% if form_editar_perfil.foto_perfil %}
+                            {% for error in form_editar_perfil.foto_perfil.errors %}
+                                <ul>
+                                    <li class="text-danger mt-3">{{ error }}</li>
+                                </ul>
+                            {% endfor %}
+                        {% endif %}
+                    </fieldset>
+
+                    {{ form_editar_perfil.submit_editar_perfil }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

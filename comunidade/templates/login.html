@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form class="border p-4 mt-2" action="" method="post">
+                    {{ form_login.csrf_token }}
+                    <legend class="text-center mt-3">Login</legend>
+                    <fieldset>
+                        <div class="form-group">
+                            {{ form_login.email_login.label(class='form-label') }}
+
+                            {% if form_login.email_login.errors %}
+                                {{ form_login.email_login(class='form-control is-invalid') }}
+                                <div class="invalid-feedback">
+                                    {% for error in form_login.email_login.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_login.email_login }}
+                            {% endif %}
+                        
+                        </div>
+                        <div class="form-group">
+                            {{ form_login.senha_login.label(class='form-label') }}
+
+                            {% if form_login.senha_login.errors %}
+                                {{ form_login.senha_login(class='form-control is-invalid') }}
+                                <div class="invalid-feedback">
+                                    {% for error in form_login.senha_login.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_login.senha_login }}
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="toggleSenha()">
+                                        <i id="icone-senha" class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            {% endif %}
+                            <div class="form-group">
+                                <div class="form-check mt-3">
+                                    <label class="form-check-label" for="{{ form_login.lembrar.id }}">{{ form_login.lembrar.label.text }}</label>
+                                    {{ form_login.lembrar }}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    {{ form_login.submit_login }}
+                </form>
+            </div>
+            <div class="col">
+                <form class="border p-4 mt-2" action="" method="post">
+                    {{ form_criar_conta.csrf_token }}
+                    <legend class="text-center mt-3">Criar Conta</legend>
+                    <fieldset>
+                        <div class="form-group">
+                            {{ form_criar_conta.username.label(class='form-label') }}
+                            {% if form_criar_conta.username.errors %}
+                                {{ form_criar_conta.username(class='form-control is-invalid') }}
+                                <div class="invalid-feedback">
+                                    {% for error in form_criar_conta.username.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_criar_conta.username }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_criar_conta.email.label(class='form-label') }}
+                            {% if form_criar_conta.email.errors %}
+                                {{ form_criar_conta.email(class='form-control is-invalid') }}
+                                <div class="invalid-feedback">
+                                    {% for error in form_criar_conta.email.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_criar_conta.email }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_criar_conta.senha.label(class='form-label') }}
+                            {% if form_criar_conta.senha.errors %}
+                                {{ form_criar_conta.senha(class='form-control is-invalid') }}
+                                <div class="invalid-feedback">
+                                    {% for error in form_criar_conta.senha.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_criar_conta.senha }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_criar_conta.confirmar_senha.label(class='form-label') }}
+                            {% if form_criar_conta.confirmar_senha.errors %}
+                                {{ form_criar_conta.confirmar_senha(class='form-control is-invalid') }}
+                                <div class="invalid-feedback">
+                                    {% for error in form_criar_conta.confirmar_senha.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_criar_conta.confirmar_senha }}
+                            {% endif %}
+                        </div>
+                    </fieldset>
+                    {{ form_criar_conta.submit_criar_conta }}
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSenha() {
+            let senhaInput = document.getElementById("senha_login");
+            let iconeSenha = document.getElementById("icone-senha");
+
+            if (senhaInput.type === "password") {
+                senhaInput.type = "text";
+                iconeSenha.classList.remove("fa-eye");
+                iconeSenha.classList.add("fa-eye-slash");
+            } else {
+                senhaInput.type = "password";
+                iconeSenha.classList.remove("fa-eye-slash");
+                iconeSenha.classList.add("fa-eye");
+            }
+        }
+</script>
+{% endblock %}
