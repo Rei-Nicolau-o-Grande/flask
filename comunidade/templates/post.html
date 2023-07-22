@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.titulo }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <h1 class="text-center">{{ post.titulo }}</h1>
+            <div class="d-flex justify-content-end">
+                {% if form %}
+                    <a href="#form_editar_post"><button class="btn btn-primary">Editar Post</button></a>
+                    <button class="btn btn-danger ms-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Deletar Post</button>
+                {% endif %}
+            </div>
+            <b class="text-end">{{ post.autor.username }}</b>
+            <small class="text-end text-muted">{{ post.data_criacao.strftime("%d/%m/%Y %H:%M:%S")}}</small>
+            <div class="col justify-content-center">
+                {{ post.corpo }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Você tem certeza que deseja deletar o post?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                    <form method="post" action="{{ url_for('post_delete', post_id=post.id) }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                        <button type="submit" class="btn btn-danger">Sim</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if form %}
+        <div class="container">
+            <div class="row">
+                <h1>Editar Post</h1>
+                <form action="" id="form_editar_post" method="POST">
+                    {{ form.csrf_token }}
+                    <div class="form-group">
+                        {{ form.titulo.label(class='form-label') }}
+                        {% if form.titulo.errors %}
+                            {{ form.titulo(class='form-control is-invalid') }}
+                            <div class="invalid-feedback">
+                                {% for error in form.titulo.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.titulo(class='form-control') }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.corpo.label(class='form-label') }}
+                        {% if form.corpo.errors %}
+                            {{ form.corpo(class='form-control', cols="5", rows="8") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.corpo.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.corpo(class='form-control', rows='5') }}
+                        {% endif %}
+                    </div>
+                    {{ form.submit_criar_post(class='btn btn-success mt-3 mb-3') }}
+                </form>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

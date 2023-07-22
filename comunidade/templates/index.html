@@ -8,6 +8,32 @@
             <div class="col-12">
                 <h1>Home</h1>
                 <p>Merda</p>
+                {% for post in posts %}
+                    <div class="row border mt-4 ">
+                        <div class="col col-2 meupost">
+                            <div class="image pe-2">
+                                {% set foto_perfil = post.autor.foto_perfil if post.autor.foto_perfil != 'default.jpg' else 'default.jpg' %}
+                                <img src="{{ url_for('static', filename='fotos_perfil/' ~ foto_perfil) }}" class="rounded">
+                            </div>
+                            <strong>{{ post.autor.username }}</strong>
+                            <div class="row justify-content-center">
+                                <div class="col">
+                                    {% for curso in post.autor.cursos.split(';') %}
+                                        <button type="button" class="btn btn-success mt-2" disabled>{{ curso }}</button>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-9">
+                            <h1><a style="text-decoration: none; color: black" href="{{ url_for('post', post_id=post.id) }}">{{ post.titulo }}</a></h1>
+                            <textarea class="form-control border-0 overflow-hidden" cols="5" rows="8" disabled style="resize: none">
+                                {{ post.corpo }}
+                            </textarea>
+                            <span>{{ post.data_criacao.strftime("%d/%m/%Y %H:%M:%S") }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+
             </div>
         </div>
     </div>

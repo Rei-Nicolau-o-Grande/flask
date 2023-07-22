@@ -8,12 +8,50 @@
 
     <div class="container">
         <h1>Usuarios</h1>
-        <ul>
-            {% for lista in lista_usuario %}
-                <li>
-                    {{ lista }}
-                </li>
-            {% endfor %}
-        </ul>
+        {% for user in lista_usuarios %}
+            <div class="container mt-5 d-flex justify-content-center">
+                <div class="card p-3">
+                    <div class="d-flex align-items-center">
+                        <div class="image me-3">
+                            <img src="{{ url_for('static', filename='fotos_perfil/{}'.format(user.foto_perfil)) }}"
+                                 class="rounded" width="200">
+                        </div>
+                        <div class="ml-3 w-100">
+                            <h4 class="mb-0 mt-0">{{ user.username }}</h4>
+                            <span>{{ user.email }}</span>
+                            <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                                <div class="d-flex flex-column">
+                                    {% if not 'Não Informado' in user.cursos or user.cursos == '' %}
+                                        <span class="articles">Cursos</span>
+                                        <span class="number1">{{ user.cursos.count(';') + 1 }}</span>
+                                    {% else %}
+                                        <span class="articles">Cursos</span>
+                                        <span class="number1">0</span>
+                                    {% endif %}
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <span class="followers">Post</span>
+                                    <span class="number2">{{ user.contar_posts() }}</span>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <span class="rating">Rating</span>
+                                    <span class="number3">8.9</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <h1 class="text-center">Cursos</h1>
+                <div class="col-md-4">
+                    {% for curso in user.cursos.split(';') %}
+                        <button type="button" class="btn btn-success mt-2" disabled>{{ curso }}</button>
+                    {% endfor %}
+
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
     </div>
 {% endblock %}

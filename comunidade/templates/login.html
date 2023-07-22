@@ -37,9 +37,14 @@
                                         {{ error }}
                                     {% endfor %}
                                 </div>
+                                <div class="input-group-append ">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="toggleSenha()">
+                                        <i id="icone-senha" class="fas fa-eye"></i>
+                                    </button>
+                                </div>
                             {% else %}
                                 {{ form_login.senha_login }}
-                                <div class="input-group-append">
+                                <div class="input-group-append ">
                                     <button class="btn btn-outline-secondary" type="button" onclick="toggleSenha()">
                                         <i id="icone-senha" class="fas fa-eye"></i>
                                     </button>
