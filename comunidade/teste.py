@@ -5,8 +5,8 @@ from comunidade import app, database
 #     database.create_all()
 
 # with app.app_context():
-#     usuario = Usuario(username='Chad', email='merda@gmail.com', senha='123')
-#     usuario_2 = Usuario(username='Chad2', email='kfdsd@dfskl.com', senha='123')
+#     usuario = Usuario(username='1', email='1@gmail.com', senha='123')
+#     usuario_2 = Usuario(username='2', email='2@dfskl.com', senha='123')
 #
 #     database.session.add(usuario)
 #     database.session.add(usuario_2)
